@@ -73,6 +73,8 @@ int main() {
 
   printf("~~~~ Lista nakon brisanja: ~~~~\n");
   printList(head.nextElement);
+  printf("---------------------------------------------------------------------"
+         "----------------------------\n");
 
   return SUCCESS;
 }
