@@ -1,0 +1,5 @@
+2024-06-30
+Bananas, 4, 0.90
+Milk, 1, 1.50
+Bread, 2, 0.95
+Dark chocolate, 1, 3.45

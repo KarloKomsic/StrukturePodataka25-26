@@ -1,0 +1,6 @@
+2025-12-04
+Apples, 3, 2.50
+Bananas, 2, 0.90
+Water, 5, 0.50
+Orange juice, 2, 2.25
+Yogurt, 1, 1.25

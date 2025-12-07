@@ -34,6 +34,10 @@ int insertAtEndOfList(Position head, char *firstName, char *lastName,
                       int yearOfBirth);
 Position searchByLastName(Position first, char *lastName);
 int deletePersonFromList(Position head, char *lastName);
+int freeList(Position first);
+int updatePerson(Position first, char *lastName);
+int insertSorted(Position head, char *firstName, char *lastName,
+                 int yearOfBirth);
 
 int main() {
   Person head = {
@@ -161,25 +165,24 @@ Position searchByLastName(Position first, char *lastName) {
 
 // Brisanje osobe po prezimenu
 int deletePersonFromList(Position head, char *lastName) {
-  Position previous = head;
-  Position current = head->nextElement;
+  Position current = head;
 
-  while (current != NULL) {
-    // Ako su prezimena ista, nasli smo osobu koju zelimo izbrisati
-    if (strcmp(current->lastName, lastName) == 0) {
-      /* Prespajanje pokazivaca tako da prethodnoj osobi dadnemo pokazivac na
-      onaj element na kojeg trenutno neobrisani clan pokazuje.
-      Primjer: Ivan -> Ana -> Luka, ce biti Ivan -> Luka ako maknemo Anu */
-      previous->nextElement = current->nextElement;
-      free(current);
+  while (current->nextElement != NULL) {
+    if (strcmp(current->nextElement->lastName, lastName) == 0) {
+
+      // Pronaden element koji treba obrisati
+      Position temp = current->nextElement;
+
+      current->nextElement = temp->nextElement;
+
+      free(temp);
 
       return SUCCESS;
     }
-    previous = current;
     current = current->nextElement;
   }
 
-  // Vrati error ako osoba koju probavamo izbrisati nije pronadena
-  printf("Osoba koju probavate obrisati nije pronadena.\n");
+  // Ako nismo pronasli osobu
+  printf("Osoba koju probavate naci ne postoji.\n");
   return PERSON_NOT_FOUND;
 }

@@ -1,0 +1,7 @@
+2025-11-11
+Bananas, 7, 0.90
+Coffee, 1, 1.40
+Spaghetti, 1, 0.99
+Water, 2, 0.50
+Bread, 1, 0.95
+Cheese, 1, 2.95

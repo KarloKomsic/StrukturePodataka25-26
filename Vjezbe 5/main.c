@@ -213,9 +213,14 @@ int freeStack(Position head) {
   while (current) {
     Position toDelete = current;
     current = current->next;
+
+    // NOTE: It is better practice to do this:
+    // toDelete->Next = NULL
+    // first because unlinking members from the list before deleting them makes
+    // it cleaner to free
     free(toDelete);
   }
-  head->next = NULL;
+  head->next = NULL; // OK to do but above method is cleaner
 
   return SUCCESS;
 }

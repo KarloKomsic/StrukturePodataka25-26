@@ -1,0 +1,6 @@
+2024-12-30
+Yogurt, 3, 1.25
+Chocolate, 2, 2.00
+Rice, 1, 0.85
+Sardines, 1, 1.05
+Dark chocolate, 2, 3.45
