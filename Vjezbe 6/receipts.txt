@@ -4,3 +4,4 @@ receipt3.txt
 receipt4.txt
 receipt5.txt
 receipt6.txt
+receipt7.txt

@@ -1,0 +1,4 @@
+2025-05-05
+Orange juice, 1, 2.25
+Chocolate, 1, 2.00
+Apples, 3, 2.50

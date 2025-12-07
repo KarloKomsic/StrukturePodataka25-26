@@ -33,15 +33,14 @@ typedef struct receipt {
   struct receipt *next;
 } Receipt;
 
-Receipt *loadAllReceipts(const char *listFileName, int *status);
-Receipt *loadSingleReceipt(Receipt *head, const char *fileName, int *status);
+Receipt *loadAllReceipts(char *listFileName, int *status);
+Receipt *loadSingleReceipt(Receipt *head, char *fileName, int *status);
 Receipt *insertReceiptSorted(Receipt *head, Receipt *newReceipt);
 Item *insertItemSorted(Item *head, Item *newItem);
-int compareDates(const char *firstDate, const char *secondDate);
-int totalQuery(Receipt *head, const char *itemName, const char *start,
-               const char *end, int *totalQuantity, double *totalSpent);
-Receipt *filterReceiptsByDateRange(Receipt *head, const char *start,
-                                   const char *end);
+int compareDates(char *firstDate, char *secondDate);
+int totalQuery(Receipt *head, char *itemName, char *start, char *end,
+               int *totalQuantity, double *totalSpent);
+Receipt *filterReceiptsByDateRange(Receipt *head, char *start, char *end);
 int freeAll(Receipt *head);
 int printReceipts(Receipt *head);
 int printReceipt(Receipt *receipt);
@@ -109,7 +108,7 @@ int main() {
   }
 }
 
-Receipt *loadAllReceipts(const char *listFileName, int *status) {
+Receipt *loadAllReceipts(char *listFileName, int *status) {
   FILE *file = fopen(listFileName, "r");
   bool fileNotFound = !file;
   if (fileNotFound) {
@@ -128,7 +127,7 @@ Receipt *loadAllReceipts(const char *listFileName, int *status) {
   return head;
 }
 
-Receipt *loadSingleReceipt(Receipt *head, const char *fileName, int *status) {
+Receipt *loadSingleReceipt(Receipt *head, char *fileName, int *status) {
   FILE *file = fopen(fileName, "r");
   bool fileNotFound = !file;
   if (fileNotFound) {
@@ -138,7 +137,7 @@ Receipt *loadSingleReceipt(Receipt *head, const char *fileName, int *status) {
 
   Receipt *receipt = malloc(sizeof(Receipt));
   bool receiptMallocFailed = !receipt;
-  if (!receiptMallocFailed) {
+  if (receiptMallocFailed) {
     fclose(file);
     *status = MALLOC_ERROR;
     return head;
@@ -196,12 +195,12 @@ Item *insertItemSorted(Item *head, Item *newItem) {
   return head;
 }
 
-int compareDates(const char *firstDate, const char *secondDate) {
+int compareDates(char *firstDate, char *secondDate) {
   return strcmp(firstDate, secondDate);
 }
 
-int totalQuery(Receipt *head, const char *itemName, const char *start,
-               const char *end, int *totalQuantity, double *totalSpent) {
+int totalQuery(Receipt *head, char *itemName, char *start, char *end,
+               int *totalQuantity, double *totalSpent) {
   *totalQuantity = 0;
   *totalSpent = 0;
   while (head) {
@@ -221,8 +220,7 @@ int totalQuery(Receipt *head, const char *itemName, const char *start,
   return SUCCESS;
 }
 
-Receipt *filterReceiptsByDateRange(Receipt *head, const char *start,
-                                   const char *end) {
+Receipt *filterReceiptsByDateRange(Receipt *head, char *start, char *end) {
   Receipt *filtered = NULL;
   while (head) {
     if (compareDates(head->date, start) >= 0 &&
