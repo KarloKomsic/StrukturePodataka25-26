@@ -137,7 +137,8 @@ Receipt *loadSingleReceipt(Receipt *head, const char *fileName, int *status) {
   }
 
   Receipt *receipt = malloc(sizeof(Receipt));
-  if (!receipt) {
+  bool receiptMallocFailed = !receipt;
+  if (!receiptMallocFailed) {
     fclose(file);
     *status = MALLOC_ERROR;
     return head;
