@@ -227,7 +227,7 @@ Receipt *filterReceiptsByDateRange(Receipt *head, char *start, char *end) {
         compareDates(head->date, end) <= 0) {
       Receipt *copy = malloc(sizeof(Receipt));
       strcpy(copy->date, head->date);
-      copy->itemList = head->itemList; // shared pointer
+      copy->itemList = head->itemList;
       copy->next = NULL;
       filtered = insertReceiptSorted(filtered, copy);
     }
