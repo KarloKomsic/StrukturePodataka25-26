@@ -5,8 +5,8 @@ Laboratorijske vježbe iz kolegija Strukture podataka - godina 2025/26.
 
 ## Reference
 
-Odrađena vježba u potpunosti: ✅
-Vježba se radi i čeka kraj: 🟩
+Odrađena vježba u potpunosti: ✅\
+Vježba se radi i čeka kraj: 🟩\
 
 ***
 
@@ -20,4 +20,3 @@ Vježba 5: ✅\
 Vježba 6: ✅\
 Vježba 7: 🟩\
 
-***
