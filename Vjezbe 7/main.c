@@ -2,10 +2,9 @@
 direktorija. Omogućiti unos novih direktorija i pod-direktorija, ispis sadržaja
 direktorija i povratak u prethodni direktorij. Točnije program treba preko
 menija simulirati korištenje DOS naredbi: 1- "md", 2 - "cd dir", 3 - "cd..", 4 -
-"dir" i 5 – izlaz.
+"dir" i 5 – izlaz. */
 
-NOTE: Added additional function for rd (remove empty directory)
-*/
+// NOTE: Added additional function for rd (remove empty directory)
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdbool.h>
@@ -19,37 +18,37 @@ NOTE: Added additional function for rd (remove empty directory)
 #define SUCCESS 0
 #define DIRECTORY_ERROR -1
 
-typedef struct directory *directoryPosition;
+typedef struct directory *DirectoryPosition;
 typedef struct directory {
   char name[MAX_NAME];
-  directoryPosition sibling;      // next direcotry ON THE SAME LEVEL
-  directoryPosition subDirectory; // first subdirectory
+  DirectoryPosition sibling;      // next direcotry ON THE SAME LEVEL
+  DirectoryPosition subDirectory; // first subdirectory
 } Directory;
 
 typedef struct stack *stackPosition;
 typedef struct stack {
-  directoryPosition directory;
+  DirectoryPosition directory;
   stackPosition next;
 } Stack;
 
-directoryPosition createDirectory(char *directoryName);
-int md(directoryPosition current, char *newDirectoryName);
-int cdDir(directoryPosition *current, stackPosition stackHead,
+DirectoryPosition createDirectory(char *directoryName);
+int md(DirectoryPosition current, char *newDirectoryName);
+int cdDir(DirectoryPosition *current, stackPosition stackHead,
           char *subDirectoryName);
-int cdBack(directoryPosition *current, stackPosition stackHead);
-int dir(directoryPosition current);
-int rd(directoryPosition current, char *directoryName);
-int push(stackPosition stackHead, directoryPosition directory);
-directoryPosition pop(stackPosition head);
+int cdBack(DirectoryPosition *current, stackPosition stackHead);
+int dir(DirectoryPosition current);
+int rd(DirectoryPosition current, char *directoryName);
+int push(stackPosition stackHead, DirectoryPosition directory);
+DirectoryPosition pop(stackPosition head);
 int printPathRecursive(stackPosition node);
-int printPath(stackPosition head, directoryPosition current);
-int freeDirectoryTree(directoryPosition directory);
+int printPath(stackPosition head, DirectoryPosition current);
+int freeDirectoryTree(DirectoryPosition directory);
 int freeStack(stackPosition head);
 
 int main() {
   Directory head = {"C:", NULL, NULL};
   Stack stackHead = {NULL, NULL};
-  directoryPosition current = &head;
+  DirectoryPosition current = &head;
 
   // Pushing the root directory into the stack first
   push(&stackHead, current);
@@ -88,8 +87,8 @@ int main() {
   return SUCCESS;
 }
 
-directoryPosition createDirectory(char *directoryName) {
-  directoryPosition directory = malloc(sizeof(Directory));
+DirectoryPosition createDirectory(char *directoryName) {
+  DirectoryPosition directory = malloc(sizeof(Directory));
   bool directoryMallocFailed = !directory;
   if (directoryMallocFailed) {
     printf("Error: Memory allocation for directory failed.\n");
@@ -102,10 +101,10 @@ directoryPosition createDirectory(char *directoryName) {
   return directory;
 }
 
-int md(directoryPosition current, char *newDirectoryName) {
+int md(DirectoryPosition current, char *newDirectoryName) {
   newDirectoryName[strcspn(newDirectoryName, "\n")] = 0;
 
-  directoryPosition newDirectory = createDirectory(newDirectoryName);
+  DirectoryPosition newDirectory = createDirectory(newDirectoryName);
   bool directoryCreationFailed = !newDirectory;
   if (directoryCreationFailed) {
     printf("Could not create new directory: %s", newDirectoryName);
@@ -118,7 +117,7 @@ int md(directoryPosition current, char *newDirectoryName) {
   } else { // a subdirectory already exists
     // Go through the entire list of subdirectories in the current
     // directory, and then add the new directory at the end
-    directoryPosition temp = current->subDirectory;
+    DirectoryPosition temp = current->subDirectory;
     while (temp->sibling)
       temp = temp->sibling;
     temp->sibling = newDirectory;
@@ -127,10 +126,10 @@ int md(directoryPosition current, char *newDirectoryName) {
   return SUCCESS;
 }
 
-int cdDir(directoryPosition *current, stackPosition stackHead,
+int cdDir(DirectoryPosition *current, stackPosition stackHead,
           char *subDirectoryName) {
   subDirectoryName[strcspn(subDirectoryName, "\n")] = 0;
-  directoryPosition temp = (*current)->subDirectory;
+  DirectoryPosition temp = (*current)->subDirectory;
   while (temp) {
     if (strcmp(temp->name, subDirectoryName) == 0) {
       *current = temp;
@@ -143,7 +142,7 @@ int cdDir(directoryPosition *current, stackPosition stackHead,
   return DIRECTORY_ERROR;
 }
 
-int cdBack(directoryPosition *current, stackPosition stackHead) {
+int cdBack(DirectoryPosition *current, stackPosition stackHead) {
   bool stackIsEmpty = !stackHead->next;
   bool stackOnlyHasRoot = !stackHead->next->next;
   if (stackIsEmpty || stackOnlyHasRoot) {
@@ -156,8 +155,8 @@ int cdBack(directoryPosition *current, stackPosition stackHead) {
   return SUCCESS;
 }
 
-int dir(directoryPosition current) {
-  directoryPosition temp = current->subDirectory;
+int dir(DirectoryPosition current) {
+  DirectoryPosition temp = current->subDirectory;
   bool noSubdirectoryFound = !temp;
   if (noSubdirectoryFound) {
     printf("<empty>\n");
@@ -172,11 +171,11 @@ int dir(directoryPosition current) {
   return SUCCESS;
 }
 
-int rd(directoryPosition current, char *directoryName) {
+int rd(DirectoryPosition current, char *directoryName) {
   directoryName[strcspn(directoryName, "\n")] = 0;
 
-  directoryPosition previous = NULL;
-  directoryPosition directoryToDelete = current->subDirectory;
+  DirectoryPosition previous = NULL;
+  DirectoryPosition directoryToDelete = current->subDirectory;
 
   while (directoryToDelete) {
     bool desiredNameMatchesCurrentDirectoryName =
@@ -206,7 +205,7 @@ int rd(directoryPosition current, char *directoryName) {
   return DIRECTORY_ERROR;
 }
 
-int push(stackPosition head, directoryPosition directory) {
+int push(stackPosition head, DirectoryPosition directory) {
   stackPosition newSubdirectory = malloc(sizeof(Stack));
   newSubdirectory->directory = directory;
   newSubdirectory->next = head->next;
@@ -214,13 +213,13 @@ int push(stackPosition head, directoryPosition directory) {
   return SUCCESS;
 }
 
-directoryPosition pop(stackPosition head) {
+DirectoryPosition pop(stackPosition head) {
   bool stackIsEmpty = !head->next;
   if (stackIsEmpty)
     return NULL;
 
   stackPosition stackNodeToDelete = head->next;
-  directoryPosition directory = stackNodeToDelete->directory;
+  DirectoryPosition directory = stackNodeToDelete->directory;
   head->next = stackNodeToDelete->next;
   free(stackNodeToDelete);
   return directory;
@@ -237,13 +236,13 @@ int printPathRecursive(stackPosition node) {
   return SUCCESS;
 }
 
-int printPath(stackPosition head, directoryPosition current) {
+int printPath(stackPosition head, DirectoryPosition current) {
   printf("\n");
   printPathRecursive(head->next);
   return SUCCESS;
 }
 
-int freeDirectoryTree(directoryPosition directory) {
+int freeDirectoryTree(DirectoryPosition directory) {
   bool noDirectoryExists = !directory;
   if (noDirectoryExists)
     return SUCCESS;

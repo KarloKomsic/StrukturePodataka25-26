@@ -9,7 +9,6 @@ postorder i level order), brisanje i pronalaženje nekog elementa. */
 #include <string.h>
 
 #define SUCCESS 0
-#define NOT_FOUND -1
 
 typedef struct node *NodePosition;
 typedef struct node {
@@ -111,8 +110,8 @@ NodePosition createNode(int value) {
 }
 
 NodePosition insert(NodePosition root, int value) {
-  bool treeIsEmpty = !root;
-  if (treeIsEmpty)
+  bool nodeDoesNotExist = !root;
+  if (nodeDoesNotExist)
     return createNode(value);
 
   if (value < root->value) {
@@ -125,8 +124,8 @@ NodePosition insert(NodePosition root, int value) {
 }
 
 NodePosition find(NodePosition root, int value) {
-  bool treeIsEmpty = !root;
-  if (treeIsEmpty)
+  bool nodeDoesNotExist = !root;
+  if (nodeDoesNotExist)
     return NULL;
 
   if (value == root->value)
@@ -140,8 +139,8 @@ NodePosition find(NodePosition root, int value) {
 }
 
 NodePosition deleteNode(NodePosition root, int value) {
-  bool treeIsEmpty = !root;
-  if (treeIsEmpty)
+  bool nodeDoesNotExist = !root;
+  if (nodeDoesNotExist)
     return NULL;
 
   if (value < root->value) {
@@ -175,8 +174,8 @@ NodePosition findMinimum(NodePosition root) {
 }
 
 int inorder(NodePosition root) {
-  bool treeDoesNotExist = !root;
-  if (treeDoesNotExist)
+  bool nodeDoesNotExist = !root;
+  if (nodeDoesNotExist)
     return SUCCESS;
 
   inorder(root->left);
@@ -186,8 +185,8 @@ int inorder(NodePosition root) {
 }
 
 int preorder(NodePosition root) {
-  bool treeDoesNotExist = !root;
-  if (treeDoesNotExist)
+  bool nodeDoesNotExist = !root;
+  if (nodeDoesNotExist)
     return SUCCESS;
 
   printf("%d ", root->value);
@@ -197,8 +196,8 @@ int preorder(NodePosition root) {
 }
 
 int postorder(NodePosition root) {
-  bool treeDoesNotExist = !root;
-  if (treeDoesNotExist)
+  bool nodeDoesNotExist = !root;
+  if (nodeDoesNotExist)
     return SUCCESS;
 
   postorder(root->left);
@@ -215,8 +214,8 @@ int levelOrder(NodePosition root) {
 }
 
 int printLevel(NodePosition root, int level) {
-  bool treeDoesNotExist = !root;
-  if (treeDoesNotExist)
+  bool nodeDoesNotExist = !root;
+  if (nodeDoesNotExist)
     return SUCCESS;
 
   if (level == 1) {
@@ -229,8 +228,8 @@ int printLevel(NodePosition root, int level) {
 }
 
 int height(NodePosition root) {
-  bool treeDoesNotExist = !root;
-  if (treeDoesNotExist)
+  bool nodeDoesNotExist = !root;
+  if (nodeDoesNotExist)
     return 0;
 
   int left = height(root->left);
@@ -239,8 +238,8 @@ int height(NodePosition root) {
 }
 
 int freeTree(NodePosition root) {
-  bool treeDoesNotExist = !root;
-  if (treeDoesNotExist)
+  bool nodeDoesNotExist = !root;
+  if (nodeDoesNotExist)
     return SUCCESS;
 
   freeTree(root->left);
