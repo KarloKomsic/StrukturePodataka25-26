@@ -1,0 +1,7 @@
+Paris,2229621
+Marseille,855393
+Lyon,500715
+Toulouse,458298
+Nice,342295
+Nantes,292718
+Strasbourg,275718

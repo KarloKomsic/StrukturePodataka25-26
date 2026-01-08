@@ -1,0 +1,6 @@
+Rome,2711491
+Milan,1296673
+Naples,968340
+Turin,910437
+Palermo,661729
+Genoa,611683

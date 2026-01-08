@@ -1,0 +1,6 @@
+Ljubljana,258873
+Maribor,114349
+Celje,37834
+Kranj,35587
+Ptuj,23957
+Koper,23726
