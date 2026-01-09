@@ -1,0 +1,7 @@
+Berlin,3460725
+Hamburg,1786448
+Munich,1353186
+Köln,1007119
+Frankfurt,679664
+Stuttgart,606558
+Dortmund,588735

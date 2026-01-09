@@ -20,5 +20,7 @@ Vježba 5: ✅\
 Vježba 6: ✅\
 Vježba 7: ✅\
 Vježba 8: ✅\
-Vježba 9: ✅
+Vježba 9: ✅\
+Vježba 10: ✅\
+Vježba 11: ✅
 
